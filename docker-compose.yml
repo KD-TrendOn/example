@@ -6,6 +6,7 @@ services:
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - BASE_PROVIDER=${BASE_PROVIDER}
+      - PROXY_LINK_WEB=${PROXY_LINK_WEB}
     restart: always
     logging:
       driver: "json-file"

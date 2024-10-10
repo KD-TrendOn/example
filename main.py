@@ -6,7 +6,9 @@ import asyncio
 import logging
 from logging.handlers import RotatingFileHandler
 import os
-
+import time
+import httpx
+async_client = httpx.AsyncClient(proxies={'http://':os.getenv("PROXY_LINK_WEB")})
 def setup_logger(name):
     log_dir = 'logs'
     if not os.path.exists(log_dir):
@@ -40,7 +42,7 @@ def setup_logger(name):
 
 logger = setup_logger(__name__)
 
-llm = ChatOpenAI(temperature=1, model="gpt-4o-mini", openai_api_key=os.getenv("OPENAI_API_KEY"), openai_api_base=os.getenv("BASE_PROVIDER"))
+llm = ChatOpenAI(temperature=1, model="gpt-4o-mini", openai_api_key=os.getenv("OPENAI_API_KEY"), openai_api_base=os.getenv("BASE_PROVIDER"), http_async_client=async_client)
 prompt = ChatPromptTemplate.from_messages([
     ("system", "Answer to user question"),
     ("human", "{question}")
@@ -50,8 +52,10 @@ chain = prompt | llm | StrOutputParser()
 async def main():
     for i in range(200):
         await asyncio.sleep(3)
+        print(i)
         result = await chain.ainvoke({"question": "Напиши пример программы на C++"})
         print(result)
+        print(i)
 
 if __name__ == "__main__":
     asyncio.run(main())
