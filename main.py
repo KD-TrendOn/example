@@ -8,7 +8,7 @@ from logging.handlers import RotatingFileHandler
 import os
 import time
 import httpx
-async_client = httpx.AsyncClient(proxies={'http://':os.getenv("PROXY_LINK_WEB")})
+async_client = httpx.AsyncClient(proxy=f'socks5://{os.getenv("PROXY_LINK_WEB")}')
 def setup_logger(name):
     log_dir = 'logs'
     if not os.path.exists(log_dir):
