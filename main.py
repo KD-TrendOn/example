@@ -40,7 +40,7 @@ def setup_logger(name):
 
 logger = setup_logger(__name__)
 
-llm = ChatOpenAI(temperature=1, model="gpt-4o-mini", openai_api_key=os.getenv("OPENAI_API_KEY"), openai_api_base="https://openrouter.ai/api/v1")
+llm = ChatOpenAI(temperature=1, model="gpt-4o-mini", openai_api_key=os.getenv("OPENAI_API_KEY"), openai_api_base=os.getenv("BASE_PROVIDER"))
 prompt = ChatPromptTemplate.from_messages([
     ("system", "Answer to user question"),
     ("human", "{question}")

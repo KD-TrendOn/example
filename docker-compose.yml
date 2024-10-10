@@ -5,6 +5,7 @@ services:
     image: trendoff153/example:latest
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - BASE_PROVIDER=${BASE_PROVIDER}
     restart: always
     logging:
       driver: "json-file"
